@@ -14,7 +14,14 @@ struct JournalApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            NavigationSplitView {
+                // first view 
+                SidebarView()
+            } content: {
+                ContentView()
+            } detail: {
+                DetailView()
+            }
                 .environment(\.managedObjectContext, dataController.container.viewContext)
                 .environmentObject(dataController)
         }

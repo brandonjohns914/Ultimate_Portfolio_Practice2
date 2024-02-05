@@ -13,6 +13,9 @@
 		418895B52B70302A00735ABF /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 418895B42B70302A00735ABF /* Preview Assets.xcassets */; };
 		418895BD2B70315400735ABF /* Main.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 418895BB2B70315400735ABF /* Main.xcdatamodeld */; };
 		418895BF2B705CBB00735ABF /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895BE2B705CBB00735ABF /* DataController.swift */; };
+		418895C22B7078A700735ABF /* SidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895C12B7078A700735ABF /* SidebarView.swift */; };
+		418895C42B7078B500735ABF /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895C32B7078B500735ABF /* DetailView.swift */; };
+		418895C62B707AEB00735ABF /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895C52B707AEB00735ABF /* Filter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,6 +28,9 @@
 		418895BC2B70315400735ABF /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		418895BE2B705CBB00735ABF /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		418895C02B70767F00735ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		418895C12B7078A700735ABF /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
+		418895C32B7078B500735ABF /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
+		418895C52B707AEB00735ABF /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +66,10 @@
 				418895C02B70767F00735ABF /* Info.plist */,
 				418895AC2B70302700735ABF /* JournalApp.swift */,
 				418895BE2B705CBB00735ABF /* DataController.swift */,
+				418895C12B7078A700735ABF /* SidebarView.swift */,
 				418895AE2B70302700735ABF /* ContentView.swift */,
+				418895C32B7078B500735ABF /* DetailView.swift */,
+				418895C52B707AEB00735ABF /* Filter.swift */,
 				418895BB2B70315400735ABF /* Main.xcdatamodeld */,
 				418895B02B70302A00735ABF /* Assets.xcassets */,
 				418895B22B70302A00735ABF /* Journal.entitlements */,
@@ -147,8 +156,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				418895C62B707AEB00735ABF /* Filter.swift in Sources */,
 				418895BD2B70315400735ABF /* Main.xcdatamodeld in Sources */,
+				418895C42B7078B500735ABF /* DetailView.swift in Sources */,
 				418895BF2B705CBB00735ABF /* DataController.swift in Sources */,
+				418895C22B7078A700735ABF /* SidebarView.swift in Sources */,
 				418895AF2B70302700735ABF /* ContentView.swift in Sources */,
 				418895AD2B70302700735ABF /* JournalApp.swift in Sources */,
 			);

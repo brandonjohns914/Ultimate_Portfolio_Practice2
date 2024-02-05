@@ -12,6 +12,11 @@ class DataController: ObservableObject {
     ///Contains Core Data infomation and syncs it will iCloud
     let container: NSPersistentCloudKitContainer
     
+    /// Default selection for filtering options 
+    @Published var selectedFilter: Filter? = Filter.all
+    
+    
+    
     /// Pre-made data controller for previewing data in SwiftUI views
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
