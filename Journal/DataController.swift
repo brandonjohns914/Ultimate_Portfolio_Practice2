@@ -92,6 +92,40 @@ class DataController: ObservableObject {
     }
 
     
+    /// BatchDelete used for testing to delete all data. This is called with CreateSampleData()
+    /// This uses a fetchRequest() on the Issue Class created by xCode
+    /// Deletes everythig on the ViewContext
+    /// - Parameter fetchRequest: Looks for Issues  without specifying a type of filter
+    private func delete(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
+            /// the fetchRequest  item to be deleted
+        let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+        /// send back the object IDs of what was deleted
+        batchDeleteRequest.resultType = .resultTypeObjectIDs
+
+        ///Execute the request and send back the BatchDeleteResult
+        if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
+            /// Changes  creates a dictionary  of NSDeletedObjectKey as the keys
+            ///  delete.result (.resultType) is what was deleted  which is a (NSMangedObjectID)
+            ///  or an empty array if something fails
+            let changes = [NSDeletedObjectsKey: delete.result as? [NSManagedObjectID] ?? []]
+            
+            /// Updates the viewContext by merging changes and the persistant store
+            NSManagedObjectContext.mergeChanges(fromRemoteContextSave: changes, into: [container.viewContext])
+        }
+    }
+    
+    
+    /// Find and delete all Issues and Tags
+    func deleteAll() {
+        let request1: NSFetchRequest<NSFetchRequestResult> = Tag.fetchRequest()
+        delete(request1)
+
+        let request2: NSFetchRequest<NSFetchRequestResult> = Issue.fetchRequest()
+        delete(request2)
+
+        save()
+    }
+
 }
 
 
