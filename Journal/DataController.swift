@@ -155,7 +155,20 @@ class DataController: ObservableObject {
         save()
     }
     
-   
+    
+    /// All Issues that  are not assigned to this tag
+    /// - Parameter issue: not assigned to any tag
+    /// - Returns: array of Tags the Issue its missing
+    func missingTags(from issue: Issue) -> [Tag] {
+        let request = Tag.fetchRequest()
+        let allTags = (try? container.viewContext.fetch(request)) ?? []
+
+        let allTagsSet = Set(allTags)
+        ///Whats in allTagsSet but not in issueTags
+        let difference = allTagsSet.symmetricDifference(issue.issueTags)
+
+        return difference.sorted()
+    }
 
 }
 

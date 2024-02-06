@@ -28,6 +28,7 @@ extension Issue {
         modificationDate ?? .now
     }
     
+    ///Selected Tags 
     ///NSSET relationship between Issues and Tags
     /// sorts all the Issues Into Tags
     /// if there arent any tags then send back and empty array
@@ -45,6 +46,17 @@ extension Issue {
         }
     }
     
+    ///Converts the selected Tags (issueTags)  into an array of just Tag names
+    var issueTagsList: String {
+        /// tags == NSSet from CoreData created class
+        guard let tags else { return "No Tags" }
+
+        if tags.count == 0 {
+            return "No Tags"
+        } else {
+            return issueTags.map(\.tagName).formatted()
+        }
+    }
     
     ///Example Isssue to be used in preview
     static var example: Issue {
