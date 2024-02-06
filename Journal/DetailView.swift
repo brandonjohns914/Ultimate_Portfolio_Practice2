@@ -13,9 +13,23 @@
 
 import SwiftUI
 
+/// Decides if there is an issue selected
+/// If there is an Issue selected show IssueView
+/// else show DetailView
 struct DetailView: View {
+    @EnvironmentObject var dataController: DataController
+    
     var body: some View {
-        Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
+        VStack {
+            /// send the selected Issue to IssueView
+            if let issue = dataController.selectedIssue {
+                IssueView(issue: issue)
+            } else {
+                NoIssueView()
+            }
+        }
+        .navigationTitle("Details")
+        .navigationBarTitleDisplayMode(.inline)
     }
 }
 

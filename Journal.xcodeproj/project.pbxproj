@@ -19,6 +19,8 @@
 		418895C82B71839C00735ABF /* Issue-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895C72B71839C00735ABF /* Issue-CoreDataHelpers.swift */; };
 		418895CA2B718DC300735ABF /* Tag-CoreDataHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895C92B718DC300735ABF /* Tag-CoreDataHelpers.swift */; };
 		418895CC2B719E2600735ABF /* IssueRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895CB2B719E2600735ABF /* IssueRow.swift */; };
+		418895CE2B71AFF200735ABF /* IssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895CD2B71AFF200735ABF /* IssueView.swift */; };
+		418895D02B71AFFB00735ABF /* NoIssueView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 418895CF2B71AFFB00735ABF /* NoIssueView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +39,8 @@
 		418895C72B71839C00735ABF /* Issue-CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Issue-CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		418895C92B718DC300735ABF /* Tag-CoreDataHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Tag-CoreDataHelpers.swift"; sourceTree = "<group>"; };
 		418895CB2B719E2600735ABF /* IssueRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueRow.swift; sourceTree = "<group>"; };
+		418895CD2B71AFF200735ABF /* IssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IssueView.swift; sourceTree = "<group>"; };
+		418895CF2B71AFFB00735ABF /* NoIssueView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoIssueView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +82,8 @@
 				418895AE2B70302700735ABF /* ContentView.swift */,
 				418895CB2B719E2600735ABF /* IssueRow.swift */,
 				418895C32B7078B500735ABF /* DetailView.swift */,
+				418895CD2B71AFF200735ABF /* IssueView.swift */,
+				418895CF2B71AFFB00735ABF /* NoIssueView.swift */,
 				418895C52B707AEB00735ABF /* Filter.swift */,
 				418895BB2B70315400735ABF /* Main.xcdatamodeld */,
 				418895B02B70302A00735ABF /* Assets.xcassets */,
@@ -173,6 +179,8 @@
 				418895BF2B705CBB00735ABF /* DataController.swift in Sources */,
 				418895C22B7078A700735ABF /* SidebarView.swift in Sources */,
 				418895AF2B70302700735ABF /* ContentView.swift in Sources */,
+				418895CE2B71AFF200735ABF /* IssueView.swift in Sources */,
+				418895D02B71AFFB00735ABF /* NoIssueView.swift in Sources */,
 				418895CC2B719E2600735ABF /* IssueRow.swift in Sources */,
 				418895AD2B70302700735ABF /* JournalApp.swift in Sources */,
 			);

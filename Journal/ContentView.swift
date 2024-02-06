@@ -47,7 +47,7 @@ struct ContentView: View {
     
     
     var body: some View {
-        List {
+        List( selection: $dataController.selectedIssue) {
             /// Displays all the issues
             ForEach(issues) { issue in
                 /// The selected issue is passed to IssueRow and changes the view 

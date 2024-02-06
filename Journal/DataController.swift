@@ -15,6 +15,8 @@ class DataController: ObservableObject {
     /// Default selection for filtering options 
     @Published var selectedFilter: Filter? = Filter.all
     
+    /// Issue selected from the list in ContentView 
+    @Published var selectedIssue: Issue?
     
     
     /// Pre-made data controller for previewing data in SwiftUI views
