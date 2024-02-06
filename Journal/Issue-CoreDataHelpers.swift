@@ -36,6 +36,16 @@ extension Issue {
         return result.sorted()
     }
     
+
+    var issueStatus: String {
+        if completed {
+            return "Closed"
+        } else {
+            return "Open"
+        }
+    }
+    
+    
     ///Example Isssue to be used in preview
     static var example: Issue {
         /// Uses in memory to make sure the example is only temporary
