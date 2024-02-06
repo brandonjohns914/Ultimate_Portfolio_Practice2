@@ -35,6 +35,23 @@ class DataController: ObservableObject {
         if inMemory {
             container.persistentStoreDescriptions.first?.url = URL(filePath: "/dev/null")
         }
+        
+        /// Automatically updates changes to the view
+        ///  so the user does not have to close the app to get updates
+        container.viewContext.automaticallyMergesChangesFromParent = true
+        
+        
+        ///Combines changes local and remote changess
+        /// This merging perfers local in memory changes over remote changes
+        container.viewContext.mergePolicy = NSMergePolicy.mergeByPropertyObjectTrump
+        
+        ///Notifiy after any write to  persistent store
+        container.persistentStoreDescriptions.first?.setOption(true as NSNumber, forKey: NSPersistentStoreRemoteChangeNotificationPostOptionKey)
+        
+        /// Call remoteStoreChange anytime a change has happened
+        NotificationCenter.default.addObserver(forName: .NSPersistentStoreRemoteChange, object: container.persistentStoreCoordinator, queue: .main, using: remoteStoreChanged)
+        
+        
         ///Loads the database onto disk or creates it if it doesnt exist
         container.loadPersistentStores { storeDescription, error in
             if let error {
@@ -43,6 +60,11 @@ class DataController: ObservableObject {
         }
     }
     
+    /// Tells CoreData to watch for any updates to the persistent storage
+    /// and send a notification to the UIs to update because there has been change
+    func remoteStoreChanged(_ notification: Notification) {
+        objectWillChange.send()
+    }
     
     /// Creates 5 tags and 10 issues for each tag
     func createSampleData() {
@@ -130,6 +152,8 @@ class DataController: ObservableObject {
 
         save()
     }
+    
+   
 
 }
 

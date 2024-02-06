@@ -52,7 +52,8 @@ struct SidebarView: View {
                         Label(filter.name, systemImage: filter.icon)
                             .badge(filter.tag?.tagActiveIssues.count ?? 0)
                     }
-                }
+                } /// Swipe to delete 
+                .onDelete(perform: delete)
             }
         }
         .toolbar {
@@ -62,6 +63,14 @@ struct SidebarView: View {
             } label : {
                 Label("ADD SAMPLES", systemImage: "flame")
             }
+        }
+    }
+    /// Deletes Tags and the Issues associated with that Tag
+    func delete(_ offsets: IndexSet) {
+        for offset in offsets {
+            let item = tags[offset]
+            /// Calls the dataController.Delete function to delete the Tag out of core memory
+            dataController.delete(item)
         }
     }
 }
