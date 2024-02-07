@@ -18,6 +18,11 @@ class DataController: ObservableObject {
     /// Issue selected from the list in ContentView 
     @Published var selectedIssue: Issue?
     
+    ///New Save Task optional
+    ///Wont  return a value but might throw an Error
+    private var saveTask: Task<Void, Error>?
+
+    
     
     /// Pre-made data controller for previewing data in SwiftUI views
     static var preview: DataController = {
@@ -106,6 +111,22 @@ class DataController: ObservableObject {
             try? container.viewContext.save()
         }
     }
+    
+    /// Task waits three seconds before calling a save
+    func queueSave() {
+        saveTask?.cancel()
+
+        /// If changes happen within the  three seconds
+        /// Then the clock starts over.
+        /// @MainActor means it must run on the main thread 
+        saveTask = Task { @MainActor in
+            print("Queuing Save")
+            try await Task.sleep(for: .seconds(3))
+            save()
+            print("Saved!")
+        }
+    }
+
     
     
     /// Deletes specific Tag or Issue from the viewContext
