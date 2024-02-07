@@ -12,16 +12,19 @@ class DataController: ObservableObject {
     ///Contains Core Data infomation and syncs it will iCloud
     let container: NSPersistentCloudKitContainer
     
-    /// Default selection for filtering options 
+    /// Default selection for filtering options
     @Published var selectedFilter: Filter? = Filter.all
     
-    /// Issue selected from the list in ContentView 
+    /// Issue selected from the list in ContentView
     @Published var selectedIssue: Issue?
+    
+    /// For searching by text
+    @Published var filterText = ""
     
     ///New Save Task optional
     ///Wont  return a value but might throw an Error
     private var saveTask: Task<Void, Error>?
-
+    
     
     
     /// Pre-made data controller for previewing data in SwiftUI views
@@ -115,10 +118,10 @@ class DataController: ObservableObject {
     /// Task waits three seconds before calling a save
     func queueSave() {
         saveTask?.cancel()
-
+        
         /// If changes happen within the  three seconds
         /// Then the clock starts over.
-        /// @MainActor means it must run on the main thread 
+        /// @MainActor means it must run on the main thread
         saveTask = Task { @MainActor in
             print("Queuing Save")
             try await Task.sleep(for: .seconds(3))
@@ -126,7 +129,7 @@ class DataController: ObservableObject {
             print("Saved!")
         }
     }
-
+    
     
     
     /// Deletes specific Tag or Issue from the viewContext
@@ -140,18 +143,18 @@ class DataController: ObservableObject {
         container.viewContext.delete(object)
         save()
     }
-
+    
     
     /// BatchDelete used for testing to delete all data. This is called with CreateSampleData()
     /// This uses a fetchRequest() on the Issue Class created by xCode
     /// Deletes everythig on the ViewContext
     /// - Parameter fetchRequest: Looks for Issues  without specifying a type of filter
     private func delete(_ fetchRequest: NSFetchRequest<NSFetchRequestResult>) {
-            /// the fetchRequest  item to be deleted
+        /// the fetchRequest  item to be deleted
         let batchDeleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
         /// send back the object IDs of what was deleted
         batchDeleteRequest.resultType = .resultTypeObjectIDs
-
+        
         ///Execute the request and send back the BatchDeleteResult
         if let delete = try? container.viewContext.execute(batchDeleteRequest) as? NSBatchDeleteResult {
             /// Changes  creates a dictionary  of NSDeletedObjectKey as the keys
@@ -169,10 +172,10 @@ class DataController: ObservableObject {
     func deleteAll() {
         let request1: NSFetchRequest<NSFetchRequestResult> = Tag.fetchRequest()
         delete(request1)
-
+        
         let request2: NSFetchRequest<NSFetchRequestResult> = Issue.fetchRequest()
         delete(request2)
-
+        
         save()
     }
     
@@ -183,14 +186,69 @@ class DataController: ObservableObject {
     func missingTags(from issue: Issue) -> [Tag] {
         let request = Tag.fetchRequest()
         let allTags = (try? container.viewContext.fetch(request)) ?? []
-
+        
         let allTagsSet = Set(allTags)
         ///Whats in allTagsSet but not in issueTags
         let difference = allTagsSet.symmetricDifference(issue.issueTags)
-
+        
         return difference.sorted()
     }
+    
+    
+    /// Filters Issues so if there is a Tag use if not find issues and sort
+    func issuesForSelectedFilter() -> [Issue] {
+        /// Filter is the selected filter if not defaults to .all
+        let filter = selectedFilter ?? .all
+        
+        var predicates = [NSPredicate]()
+        
+        ///Filter issues by  Tag or Date
+        if let tag = filter.tag {
+            /// Search for the Tag  Predicate  and does this contain this particular Tag
+            /// provide those issues relating to that Tag
+            let tagPredicate = NSPredicate(format: "tags CONTAINS %@", tag)
+            predicates.append(tagPredicate)
+            
+        } else {
+            ///Search for the Tag based on the modification date
+            let datePredicate = NSPredicate(format: "modificationDate > %@", filter.minModificationDate as NSDate)
+            predicates.append(datePredicate)
+        }
+        
+        /// Removing white spaces
+        let trimmedFilterText = filterText.trimmingCharacters(in: .whitespaces)
 
+        
+        if trimmedFilterText.isEmpty == false {
+            
+            /// Issue title contain the searchPredicate
+            let titlePredicate = NSPredicate(format: "title CONTAINS[c] %@", trimmedFilterText)
+            
+            /// Issue content contain the searchPredicate
+            let contentPredicate = NSPredicate(format: "content CONTAINS[c] %@", trimmedFilterText)
+            
+            /// Does the Issue contain either the title or the content
+            /// Add the Combined title or content result
+            let combinedPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [titlePredicate, contentPredicate])
+            
+            /// Add combinedPredicate to the  Predicate array 
+            predicates.append(combinedPredicate)
+        }
+        
+        
+        
+        /// Fetch all issues relating to predicate array
+        let request = Issue.fetchRequest()
+        /// Bring in all predicates and combine them to a single  predicate
+        /// Both Tag and Date must be true
+        request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        /// allIssues is now the NSCompoundPredicate search results
+        let allIssues = (try? container.viewContext.fetch(request)) ?? []
+        
+        return allIssues.sorted()
+    }
+    
 }
 
 
@@ -198,17 +256,54 @@ class DataController: ObservableObject {
 
 /*
  Core Data
-    will automatically creates classes
-    based on the attributes we have created
-    in this case them means issue and tags
+ will automatically creates classes
+ based on the attributes we have created
+ in this case them means issue and tags
  
  Core Data stack will create and save these automatically
  
  let viewContext = container.viewContext
-    holds all the active objects in memory
+ holds all the active objects in memory
  
  .save()
-    saves data for as long as the app is on the phone
-    and it will sync it with icloud
+ saves data for as long as the app is on the phone
+ and it will sync it with icloud
+ 
+ 
+ lazy way loads all issues then just throws them away
+ /// Filters Issues so if there is a Tag use if not find issues and sort
+ func issuesForSelectedFilter() -> [Issue] {
+ /// Filter is the selected filter if not defaults to .all
+ let filter = selectedFilter ?? .all
+ 
+ var allIssues: [Issue]
+ 
+ ///Tag attached to filter then filter by Tag first
+ if let tag = filter.tag {
+ ///Add the Tag issues to the array
+ allIssues = tag.issues?.allObjects as? [Issue] ?? []
+ 
+ } else {
+ 
+ /// No Tags then fetch all issues if no issues then an empty array
+ let request = Issue.fetchRequest()
+ 
+ ///Requesting Issues based on the modificationDate based on the filter that is currently active
+ request.predicate = NSPredicate(
+ format: "modificationDate > %@",
+ filter.minModificationDate as NSDate
+ )
+ allIssues = (try? container.viewContext.fetch(request)) ?? []
+ }
+ let trimmedFilterText = filterText.trimmingCharacters(in: .whitespaces)
+ 
+ if trimmedFilterText.isEmpty == false {
+ allIssues = allIssues.filter { $0.issueTitle.localizedCaseInsensitiveContains(filterText) || $0.issueContent.localizedCaseInsensitiveContains(filterText) }
+ }
+ 
+ 
+ return allIssues.sorted()
+ }
+ 
  
  */
