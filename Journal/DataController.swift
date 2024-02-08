@@ -7,6 +7,17 @@
 
 import CoreData
 
+enum SortType: String {
+    /// Attribute names are equal to the coredata names
+    /// this allows connecting and sorting data to be easier
+    case dateCreated = "creationDate"
+    case dateModified = "modificationDate"
+    case titleOrder = "title"
+}
+
+enum Status {
+    case all, open, closed
+}
 
 class DataController: ObservableObject {
     ///Contains Core Data infomation and syncs it will iCloud
@@ -14,22 +25,31 @@ class DataController: ObservableObject {
     
     /// Default selection for filtering options
     @Published var selectedFilter: Filter? = Filter.all
-    
     /// Issue selected from the list in ContentView
     @Published var selectedIssue: Issue?
-    
     /// For searching by text
     @Published var filterText = ""
-    
     /// For storing active tags
     @Published var filterTokens = [Tag]()
+    /// Global on/off for the filter
+    @Published var filterEnabled = false
+    /// Issue Priority -1 any priority
+    @Published var filterPriority = -1
+    /// Issue Open/Closed
+    @Published var filterStatus = Status.all
+    /// Sorting by date creation
+    @Published var sortType = SortType.dateCreated
+    /// Sorting by the newest Issue/Tag 
+    @Published var sortNewestFirst = true
+    
+   
+    @Published var sortByTitle = true
+
     
     ///New Save Task optional
     ///Wont  return a value but might throw an Error
     private var saveTask: Task<Void, Error>?
-    
-    
-    
+        
     /// Pre-made data controller for previewing data in SwiftUI views
     static var preview: DataController = {
         let dataController = DataController(inMemory: true)
@@ -268,6 +288,29 @@ class DataController: ObservableObject {
             }
         }
         
+        
+        ///  if the filterEnabled is active then add
+        if filterEnabled {
+            if filterPriority >= 0 {
+                /// Search for the Issue Priority
+                let priorityFilter = NSPredicate(format: "priority = %d", filterPriority)
+                /// Add it to the predicate array
+                predicates.append(priorityFilter)
+            }
+            
+            /// Searching for open or closed
+            if filterStatus != .all {
+               // is fitlerStatus = Closed? if it is True if not make it false
+                let lookForClosed = filterStatus == .closed
+                
+                /// Search for closed filters
+                /// lookForClosed is set to true if the user is only looking for closed issues
+                let statusFilter = NSPredicate(format: "completed = %@", NSNumber(value: lookForClosed))
+                /// Add the closedFilters to the predicate array
+                predicates.append(statusFilter)
+            }
+        }
+        
         /// Fetch all issues relating to predicate array
         let request = Issue.fetchRequest()
         
@@ -275,6 +318,9 @@ class DataController: ObservableObject {
         /// This creates a single predicate search
         /// So each result is filtered byased on Tag, Date, Title, and Content
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
+        
+        /// What to sort by
+        request.sortDescriptors = [NSSortDescriptor(key: sortType.rawValue, ascending: sortNewestFirst), NSSortDescriptor(key: sortType.rawValue, ascending: sortByTitle)]
         
         /// allIssues is now the NSCompoundPredicate search results
         let allIssues = (try? container.viewContext.fetch(request)) ?? []
