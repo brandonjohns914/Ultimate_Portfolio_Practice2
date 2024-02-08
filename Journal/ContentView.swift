@@ -28,8 +28,11 @@ struct ContentView: View {
             .onDelete(perform: delete)
         }
         .navigationTitle("Issues")
-        .searchable(text: $dataController.filterText, prompt: "Filter issues")
+        .searchable(text: $dataController.filterText, tokens: $dataController.filterTokens, suggestedTokens: .constant(dataController.suggestedFilterTokens), prompt: "Select a Tag or write in to find Issues") { tag in
+            Text(tag.tagName)
+        }
     }
+    
     /// Deletes Issues
     func delete(_ offsets: IndexSet) {
         
@@ -41,7 +44,7 @@ struct ContentView: View {
             dataController.delete(item)
         }
     }
-
+    
 }
 
 #Preview {

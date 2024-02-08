@@ -21,6 +21,9 @@ class DataController: ObservableObject {
     /// For searching by text
     @Published var filterText = ""
     
+    /// For storing active tags
+    @Published var filterTokens = [Tag]()
+    
     ///New Save Task optional
     ///Wont  return a value but might throw an Error
     private var saveTask: Task<Void, Error>?
@@ -33,6 +36,23 @@ class DataController: ObservableObject {
         dataController.createSampleData()
         return dataController
     }()
+    
+    
+    /// Sort by Tags
+    var suggestedFilterTokens: [Tag] {
+       
+        /// removes the # symbol
+        let trimmedFilterText = String(filterText).trimmingCharacters(in: .whitespaces)
+        let request = Tag.fetchRequest()
+
+        if trimmedFilterText.isEmpty == false {
+            
+            /// Only search if we have some Tag to search for
+            request.predicate = NSPredicate(format: "name CONTAINS[c] %@", trimmedFilterText)
+        }
+
+        return (try? container.viewContext.fetch(request).sorted()) ?? []
+    }
     
     
     /// Writes data in memory
@@ -205,13 +225,15 @@ class DataController: ObservableObject {
         ///Filter issues by  Tag or Date
         if let tag = filter.tag {
             /// Search for the Tag  Predicate  and does this contain this particular Tag
-            /// provide those issues relating to that Tag
+            /// provide those Issues relating to that Tag
             let tagPredicate = NSPredicate(format: "tags CONTAINS %@", tag)
+            /// Adding Tag search result to the  predicate array
             predicates.append(tagPredicate)
             
         } else {
             ///Search for the Tag based on the modification date
             let datePredicate = NSPredicate(format: "modificationDate > %@", filter.minModificationDate as NSDate)
+            ///Adding the date search result to the predicate array
             predicates.append(datePredicate)
         }
         
@@ -221,26 +243,37 @@ class DataController: ObservableObject {
         
         if trimmedFilterText.isEmpty == false {
             
-            /// Issue title contain the searchPredicate
+            //Contains[c] case insensitive
+            
+            /// Issue title search
             let titlePredicate = NSPredicate(format: "title CONTAINS[c] %@", trimmedFilterText)
             
-            /// Issue content contain the searchPredicate
+            /// Issue content
             let contentPredicate = NSPredicate(format: "content CONTAINS[c] %@", trimmedFilterText)
             
             /// Does the Issue contain either the title or the content
             /// Add the Combined title or content result
             let combinedPredicate = NSCompoundPredicate(orPredicateWithSubpredicates: [titlePredicate, contentPredicate])
             
-            /// Add combinedPredicate to the  Predicate array 
+            /// Add combinedPredicate to the  Predicate array
             predicates.append(combinedPredicate)
         }
         
         
+        /// Returning All tags
+        if filterTokens.isEmpty == false {
+            for filterToken in filterTokens {
+                let tokenPredicate = NSPredicate(format: "tags CONTAINS %@", filterToken)
+                predicates.append(tokenPredicate)
+            }
+        }
         
         /// Fetch all issues relating to predicate array
         let request = Issue.fetchRequest()
-        /// Bring in all predicates and combine them to a single  predicate
-        /// Both Tag and Date must be true
+        
+        /// Every Predicate gets added to the predicate array
+        /// This creates a single predicate search
+        /// So each result is filtered byased on Tag, Date, Title, and Content
         request.predicate = NSCompoundPredicate(andPredicateWithSubpredicates: predicates)
         
         /// allIssues is now the NSCompoundPredicate search results
@@ -305,5 +338,10 @@ class DataController: ObservableObject {
  return allIssues.sorted()
  }
  
+ /// OR approach to returning tags select each one 
+ if filterTokens.isEmpty == false {
+     let tokenPredicate = NSPredicate(format: "ANY tags IN %@", filterTokens)
+     predicates.append(tokenPredicate)
+ }
  
  */
