@@ -329,21 +329,33 @@ class DataController: ObservableObject {
     }
     
     func newIssue() {
+        /// Issue comes from Core Data when Issue is created in main
+        /// context is the connection to the memory 
         let issue = Issue(context: container.viewContext)
         issue.title = "New Issue"
         issue.creationDate = .now
         issue.priority = 1
         
-        /// Automatically assigns new issue to whatever tag the user was viewing
+        /// Assigns new Issue to a Tag
         if let tag = selectedFilter?.tag {
             issue.addToTags(tag)
         }
         
         save()
         
-        /// This jump starts navigation so editing can start right away 
+        /// This jump starts navigation so editing can start right away
         selectedIssue = issue
     }
+    
+    func newTag() {
+        /// Tag comes from Core Data when Tag is created in main
+        /// context is the connection to the memory
+        let tag = Tag(context: container.viewContext)
+        tag.id = UUID()
+        tag.name = "New tag"
+        save()
+    }
+
     
 }
 
