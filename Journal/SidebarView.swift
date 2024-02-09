@@ -30,6 +30,8 @@ struct SidebarView: View {
     @State private var tagName = ""
     
     
+    @State private var showingAwards = false
+    
     
     /// Converts all Tags into Filter objects in an array.
     var tagFilters: [Filter] {
@@ -71,7 +73,17 @@ struct SidebarView: View {
             }
         }
         .toolbar {
-            //Only seen in debug wont be shown on the app stor e
+            Button(action: dataController.newTag) {
+                Label("Add tag", systemImage: "plus")
+            }
+            
+            Button {
+                showingAwards.toggle()
+            } label: {
+                Label("Show awards", systemImage: "rosette")
+            }
+
+            //Only seen in debug wont be shown on the app store
     #if DEBUG
             Button {
                 dataController.deleteAll()
@@ -80,16 +92,14 @@ struct SidebarView: View {
                 Label("ADD SAMPLES", systemImage: "flame")
             }
     #endif
-            
-            Button(action: dataController.newTag) {
-                Label("Add tag", systemImage: "plus")
-            }
+
         }
         .alert("Rename tag", isPresented: $renamingTag) {
             Button("OK", action: completeRename)
             Button("Cancel", role: .cancel) { }
             TextField("New name", text: $tagName)
         }
+        .sheet(isPresented: $showingAwards, content: AwardsView.init)
 
     }
     /// Deletes Tags and the Issues associated with that Tag
