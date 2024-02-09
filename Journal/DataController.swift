@@ -328,6 +328,23 @@ class DataController: ObservableObject {
         return allIssues.sorted()
     }
     
+    func newIssue() {
+        let issue = Issue(context: container.viewContext)
+        issue.title = "New Issue"
+        issue.creationDate = .now
+        issue.priority = 1
+        
+        /// Automatically assigns new issue to whatever tag the user was viewing
+        if let tag = selectedFilter?.tag {
+            issue.addToTags(tag)
+        }
+        
+        save()
+        
+        /// This jump starts navigation so editing can start right away 
+        selectedIssue = issue
+    }
+    
 }
 
 
