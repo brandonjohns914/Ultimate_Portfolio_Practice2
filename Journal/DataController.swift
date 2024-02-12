@@ -356,7 +356,7 @@ class DataController: ObservableObject {
         /// context is the connection to the memory
         let tag = Tag(context: container.viewContext)
         tag.id = UUID()
-        tag.name = "New tag"
+        tag.name = "New Tag"
         save()
     }
 

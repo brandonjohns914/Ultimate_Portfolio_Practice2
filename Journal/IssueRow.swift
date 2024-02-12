@@ -40,7 +40,7 @@ struct IssueRow: View {
                 Spacer()
                 ///CreationDate of the Issue and displays Closed if the issue is closed.
                 VStack(alignment: .trailing) {
-                    Text(issue.issueCreationDate.formatted(date: .abbreviated, time: .omitted))
+                    Text(issue.issueFormattedCreationDate)
                         .accessibilityLabel(issue.issueCreationDate.formatted(date: .abbreviated, time: .omitted))
                         .font(.subheadline)
 

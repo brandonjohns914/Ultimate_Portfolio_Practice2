@@ -83,13 +83,13 @@ struct SidebarView: View {
         }
         .toolbar {
             Button(action: dataController.newTag) {
-                Label("Add tag", systemImage: "plus")
+                Label("Add Tag", systemImage: "plus")
             }
             
             Button {
                 showingAwards.toggle()
             } label: {
-                Label("Show awards", systemImage: "rosette")
+                Label("Show Awards", systemImage: "rosette")
             }
 
             //Only seen in debug wont be shown on the app store
@@ -103,10 +103,10 @@ struct SidebarView: View {
     #endif
 
         }
-        .alert("Rename tag", isPresented: $renamingTag) {
+        .alert("Rename Tag", isPresented: $renamingTag) {
             Button("OK", action: completeRename)
             Button("Cancel", role: .cancel) { }
-            TextField("New name", text: $tagName)
+            TextField("New Name", text: $tagName)
         }
         .sheet(isPresented: $showingAwards, content: AwardsView.init)
         .navigationTitle("Filters")

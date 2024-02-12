@@ -26,6 +26,7 @@
 		41D3CA1D2B76CF090040F762 /* Bundle-Decodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3CA1C2B76CF090040F762 /* Bundle-Decodable.swift */; };
 		41D3CA1F2B76D9950040F762 /* Award.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3CA1E2B76D9950040F762 /* Award.swift */; };
 		41D3CA212B76DBCB0040F762 /* AwardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D3CA202B76DBCB0040F762 /* AwardsView.swift */; };
+		41D3CA232B7AC2B90040F762 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 41D3CA222B7AC2B80040F762 /* Localizable.strings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,6 +52,7 @@
 		41D3CA1C2B76CF090040F762 /* Bundle-Decodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bundle-Decodable.swift"; sourceTree = "<group>"; };
 		41D3CA1E2B76D9950040F762 /* Award.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Award.swift; sourceTree = "<group>"; };
 		41D3CA202B76DBCB0040F762 /* AwardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AwardsView.swift; sourceTree = "<group>"; };
+		41D3CA222B7AC2B80040F762 /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,6 +100,7 @@
 				418895CD2B71AFF200735ABF /* IssueView.swift */,
 				418895CF2B71AFFB00735ABF /* NoIssueView.swift */,
 				418895C52B707AEB00735ABF /* Filter.swift */,
+				41D3CA222B7AC2B80040F762 /* Localizable.strings */,
 				41D3CA162B76CE780040F762 /* Awards.json */,
 				41D3CA182B76CE840040F762 /* Colors.xcassets */,
 				418895BB2B70315400735ABF /* Main.xcdatamodeld */,
@@ -174,6 +177,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				41D3CA232B7AC2B90040F762 /* Localizable.strings in Resources */,
 				418895B52B70302A00735ABF /* Preview Assets.xcassets in Resources */,
 				41D3CA192B76CE840040F762 /* Colors.xcassets in Resources */,
 				41D3CA172B76CE780040F762 /* Awards.json in Resources */,

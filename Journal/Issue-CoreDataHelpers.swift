@@ -46,6 +46,10 @@ extension Issue {
         }
     }
     
+    var issueFormattedCreationDate: String {
+        issueCreationDate.formatted(date: .numeric, time: .omitted)
+    }
+    
     ///Converts the selected Tags (issueTags)  into an array of just Tag names
     var issueTagsList: String {
         /// tags == NSSet from CoreData created class

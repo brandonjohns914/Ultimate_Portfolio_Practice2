@@ -1,0 +1,117 @@
+/* 
+  Localizable.strings
+  Journal
+
+  Created by Brandon Johns on 2/12/24.
+  
+*/
+
+
+// "Keyword" = "Case"
+// XCode uses the keyword to find and change it to the Case 
+
+
+/* GENERAL STRINGS */
+"OK" = "OK";
+"Cancel" = "Cancel";
+"Delete" = "Delete";
+"Rename" = "Rename";
+"Actions" = "Actions";
+
+
+
+/* SIDEBARVIEW */
+"Filters" = "Filters";
+"Smart Filters" = "Smart Filters";
+"All Issues" = "All Issues";
+"Recent Issues" = "Recent Issues";
+"Tags" = "Tags";
+"Add Tag" = "Add Tag";
+"Show Awards" = "Show Awards";
+
+"Rename Tag" = "Rename Tag";
+"New name" = "New Name";
+
+
+
+/* CONTENTVIEW */
+"Issues" = "Issues";
+"Select a Tag or write in the Issue Title" = "Select a Tag or write in the Issue Title";
+
+/* A button that shows a menu with the following options */
+"Filter" = "Filter";
+"Turn Filter On" = "Turn Filter On"; /* Enables filtering */
+"Turn Filter Off" = "Turn Filter Off"; /* Disables filtering */
+"Sort By" = "Sort By"; /* Adjust the order issues are shown */
+"Date Created" = "Date Created"; /* Sort issues by the date they were created */
+"Date Modified" = "Date Modified"; /* Sort issues by the date they were last changed */
+"Newest to Oldest" = "Newest to Oldest"; /* Place newer issues before older issues */
+"Oldest to Newest" = "Oldest to Newest"; /* Place older issues before newer issues */
+
+"All" = "All";
+"Open" = "Open";
+"Closed" = "Closed";
+
+"No Tags" = "No Tags";
+"Locked" = "Locked";
+"Unlocked: %@" = "Unlocked: %@";
+
+"Low" = "Low";
+"Medium" = "Medium";
+"High" = "High";
+
+/* Create a new issue */
+"New Issue" = "New Issue";
+
+/* A text placeholder, to help users search */
+"Select a Tag or write in the Issue title" = "Select a Tag or write in the Issue title";
+
+/* Shown as a status for closed issues */
+"CLOSED" = "CLOSED";
+
+
+
+/* DETAILSVIEW */
+"Details" = "Details";
+
+/* NOISSUEVIEW */
+"No Issue Selected" = "No Issue Selected";
+"Copy Issue Title" = "Copy Issue Title";
+
+/* ISSUEVIEW */
+"Copy Issue Title" = "Copy Issue Title";
+"Close Issue" = "Close Issue";
+"Re-open Issue" = "Re-open Issue";
+
+/* Fields that let the users enter details about a specific issue */
+"Enter the issue Title here" = "Enter the Issue Title here";
+"**Modified:** %@" = "**Modified:** %@";
+"**Status:** %@" = "**Status:** %@";
+"Priority" = "Priority";
+"Add Tags" = "Add Tags";
+"Basic Information" = "Basic Information";
+"Enter the issue description here" = "Enter the issue description here";
+
+
+
+/* AWARDS VIEW */
+"Awards" = "Awards";
+
+
+
+/* DATA */
+"New Tag" = "New Tag";
+"New Issue" = "New Issue";
+
+
+
+/* DEBUG ONLY */
+"ADD SAMPLES" = "ADD SAMPLES";
+
+/* REMINDERS */
+"Reminders" = "Reminders";
+"Show Reminders" = "Show Reminders";
+"Oops!" = "Oops!";
+"There was a problem setting your notification. Please check you have notifications enabled." = "There was a problem setting your notification. Please check you have notifications enabled.";
+"Check Settings" = "Check Settings";
+"Reminder Time" = "Reminder Time";
