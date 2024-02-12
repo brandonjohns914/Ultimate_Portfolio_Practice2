@@ -21,6 +21,11 @@ struct Filter: Identifiable, Hashable {
     /// filter by specific tag
     var tag: Tag?
     
+    var activeIssuesCount: Int {
+        tag?.tagActiveIssues.count ?? 0
+    }
+    
+    
     /// Both are filtering options to direct which view to move to
     ///all is a constant filter that shows all issues
     static var all = Filter (

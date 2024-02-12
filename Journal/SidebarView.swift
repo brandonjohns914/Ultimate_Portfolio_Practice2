@@ -73,6 +73,9 @@ struct SidebarView: View {
                                     Label("Delete", systemImage: "trash")
                                 }
                             }
+                            .accessibilityElement()
+                            .accessibilityLabel(filter.name)
+                            .accessibilityHint("^[\(filter.activeIssuesCount) issue](inflect: true)")
                     }
                 } /// Swipe to delete
                 .onDelete(perform: delete)
