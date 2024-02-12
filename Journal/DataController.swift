@@ -149,7 +149,11 @@ class DataController: ObservableObject {
     /// Saves changes to the data if another part of the app makes changes
     /// this helps save extra from so core data is not constantly saving
     /// the container will declare if there has been changes or not
+    /// SaveTask?.cancel cancels any save happening in the queue
     func save() {
+        
+        saveTask?.cancel()
+
         if container.viewContext.hasChanges {
             try? container.viewContext.save()
         }
@@ -325,7 +329,7 @@ class DataController: ObservableObject {
         /// allIssues is now the NSCompoundPredicate search results
         let allIssues = (try? container.viewContext.fetch(request)) ?? []
         
-        return allIssues.sorted()
+        return allIssues
     }
     
     func newIssue() {
