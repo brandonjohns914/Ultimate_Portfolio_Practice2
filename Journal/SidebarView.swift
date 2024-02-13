@@ -29,9 +29,7 @@ struct SidebarView: View {
     @State private var renamingTag = false
     @State private var tagName = ""
     
-    
     @State private var showingAwards = false
-    
     
     /// Converts all Tags into Filter objects in an array.
     var tagFilters: [Filter] {
@@ -46,62 +44,21 @@ struct SidebarView: View {
             /// Listing out the Filters for the User decide .all or .recent
             Section("Smart Filters") {
                 /// Sorts by tagFilters and the filter selected navigatates to a new view
-                ForEach(smartFilters) { filter in
-                    /// Takes the User to the filter picked
-                    NavigationLink(value: filter) {
-                        Label(filter.name, systemImage: filter.icon )
-                    }
-                }
+                /// /// Takes the User to the filter picked
+                ForEach(smartFilters, content: SmartFilterRow.init)
+         
             }
             ///Listing out Tags and filters changes the view based on if a tag was selected or not.
             Section("Tags") {
                 ForEach(tagFilters) { filter in
-                    NavigationLink(value: filter){
-                        ///Displays the tags and the number of active issues
-                        Label(filter.name, systemImage: filter.icon)
-                            .badge(filter.tag?.tagActiveIssues.count ?? 0)
-                            .contextMenu {
-                                Button {
-                                    rename(filter)
-                                } label: {
-                                    Label("Rename", systemImage: "pencil")
-                                }
-                                
-                                Button(role: .destructive) {
-                                    delete(filter)
-                                } label: {
-                                    Label("Delete", systemImage: "trash")
-                                }
-                            }
-                            .accessibilityElement()
-                            .accessibilityLabel(filter.name)
-                            .accessibilityHint("^[\(filter.activeIssuesCount) issue](inflect: true)")
-                    }
+                    UserFilterRow(filter: filter, rename: rename, delete: delete)
+                    
                 } /// Swipe to delete
                 .onDelete(perform: delete)
             }
         }
         .toolbar {
-            Button(action: dataController.newTag) {
-                Label("Add Tag", systemImage: "plus")
-            }
-            
-            Button {
-                showingAwards.toggle()
-            } label: {
-                Label("Show Awards", systemImage: "rosette")
-            }
-
-            //Only seen in debug wont be shown on the app store
-    #if DEBUG
-            Button {
-                dataController.deleteAll()
-                dataController.createSampleData()
-            } label: {
-                Label("ADD SAMPLES", systemImage: "flame")
-            }
-    #endif
-
+            SidebarViewToolbar(showingAwards: $showingAwards)
         }
         .alert("Rename Tag", isPresented: $renamingTag) {
             Button("OK", action: completeRename)
