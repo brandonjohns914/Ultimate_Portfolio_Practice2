@@ -50,7 +50,7 @@
 		418895B42B70302A00735ABF /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		418895BC2B70315400735ABF /* Main.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Main.xcdatamodel; sourceTree = "<group>"; };
 		418895BE2B705CBB00735ABF /* DataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
-		418895C02B70767F00735ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		418895C02B70767F00735ABF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		418895C12B7078A700735ABF /* SidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarView.swift; sourceTree = "<group>"; };
 		418895C32B7078B500735ABF /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		418895C52B707AEB00735ABF /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -97,33 +97,18 @@
 		418895AB2B70302700735ABF /* Journal */ = {
 			isa = PBXGroup;
 			children = (
-				418895C02B70767F00735ABF /* Info.plist */,
 				418895AC2B70302700735ABF /* JournalApp.swift */,
 				418895BE2B705CBB00735ABF /* DataController.swift */,
-				418895C72B71839C00735ABF /* Issue-CoreDataHelpers.swift */,
-				415F5AF82B7AECE8007FE77C /* SmartFilterRow.swift */,
-				418895C92B718DC300735ABF /* Tag-CoreDataHelpers.swift */,
-				418895C12B7078A700735ABF /* SidebarView.swift */,
-				415F5AFA2B7AEE15007FE77C /* UserFilterRow.swift */,
-				415F5AF02B7AE821007FE77C /* SidebarViewToolbar.swift */,
-				41D3CA202B76DBCB0040F762 /* AwardsView.swift */,
-				41D3CA1C2B76CF090040F762 /* Bundle-Decodable.swift */,
-				41D3CA1E2B76D9950040F762 /* Award.swift */,
-				418895AE2B70302700735ABF /* ContentView.swift */,
-				415F5AF42B7AE9C9007FE77C /* ContentViewToolbar.swift */,
-				418895CB2B719E2600735ABF /* IssueRow.swift */,
-				418895C32B7078B500735ABF /* DetailView.swift */,
-				418895CD2B71AFF200735ABF /* IssueView.swift */,
-				415F5AF62B7AEB46007FE77C /* TagsMenuView.swift */,
-				415F5AF22B7AE98A007FE77C /* IssueViewToolbar.swift */,
-				418895CF2B71AFFB00735ABF /* NoIssueView.swift */,
-				418895C52B707AEB00735ABF /* Filter.swift */,
-				41D3CA222B7AC2B80040F762 /* Localizable.strings */,
-				41D3CA162B76CE780040F762 /* Awards.json */,
+				41F8D6632B7AF7360004DC1C /* Models */,
+				41F8D65F2B7AF6AB0004DC1C /* Filters */,
+				41F8D6642B7AF74B0004DC1C /* Extensions */,
+				41F8D6602B7AF6C10004DC1C /* Issues */,
+				41F8D6612B7AF6F00004DC1C /* Editing */,
+				41F8D6652B7AF75D0004DC1C /* Localization */,
+				41F8D6622B7AF6FE0004DC1C /* Awards */,
+				41F8D6662B7AF7AE0004DC1C /* Configuration */,
 				41D3CA182B76CE840040F762 /* Colors.xcassets */,
-				418895BB2B70315400735ABF /* Main.xcdatamodeld */,
 				418895B02B70302A00735ABF /* Assets.xcassets */,
-				418895B22B70302A00735ABF /* Journal.entitlements */,
 				418895B32B70302A00735ABF /* Preview Content */,
 			);
 			path = Journal;
@@ -135,6 +120,85 @@
 				418895B42B70302A00735ABF /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		41F8D65F2B7AF6AB0004DC1C /* Filters */ = {
+			isa = PBXGroup;
+			children = (
+				415F5AF82B7AECE8007FE77C /* SmartFilterRow.swift */,
+				418895C12B7078A700735ABF /* SidebarView.swift */,
+				415F5AFA2B7AEE15007FE77C /* UserFilterRow.swift */,
+				415F5AF02B7AE821007FE77C /* SidebarViewToolbar.swift */,
+				418895C52B707AEB00735ABF /* Filter.swift */,
+			);
+			path = Filters;
+			sourceTree = "<group>";
+		};
+		41F8D6602B7AF6C10004DC1C /* Issues */ = {
+			isa = PBXGroup;
+			children = (
+				418895CB2B719E2600735ABF /* IssueRow.swift */,
+				418895AE2B70302700735ABF /* ContentView.swift */,
+				415F5AF42B7AE9C9007FE77C /* ContentViewToolbar.swift */,
+			);
+			path = Issues;
+			sourceTree = "<group>";
+		};
+		41F8D6612B7AF6F00004DC1C /* Editing */ = {
+			isa = PBXGroup;
+			children = (
+				418895C32B7078B500735ABF /* DetailView.swift */,
+				418895CD2B71AFF200735ABF /* IssueView.swift */,
+				415F5AF62B7AEB46007FE77C /* TagsMenuView.swift */,
+				415F5AF22B7AE98A007FE77C /* IssueViewToolbar.swift */,
+				418895CF2B71AFFB00735ABF /* NoIssueView.swift */,
+			);
+			path = Editing;
+			sourceTree = "<group>";
+		};
+		41F8D6622B7AF6FE0004DC1C /* Awards */ = {
+			isa = PBXGroup;
+			children = (
+				41D3CA202B76DBCB0040F762 /* AwardsView.swift */,
+				41D3CA1E2B76D9950040F762 /* Award.swift */,
+				41D3CA162B76CE780040F762 /* Awards.json */,
+			);
+			path = Awards;
+			sourceTree = "<group>";
+		};
+		41F8D6632B7AF7360004DC1C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				418895C72B71839C00735ABF /* Issue-CoreDataHelpers.swift */,
+				418895C92B718DC300735ABF /* Tag-CoreDataHelpers.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		41F8D6642B7AF74B0004DC1C /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				41D3CA1C2B76CF090040F762 /* Bundle-Decodable.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		41F8D6652B7AF75D0004DC1C /* Localization */ = {
+			isa = PBXGroup;
+			children = (
+				41D3CA222B7AC2B80040F762 /* Localizable.strings */,
+			);
+			path = Localization;
+			sourceTree = "<group>";
+		};
+		41F8D6662B7AF7AE0004DC1C /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				418895BB2B70315400735ABF /* Main.xcdatamodeld */,
+				418895C02B70767F00735ABF /* Info.plist */,
+				418895B22B70302A00735ABF /* Journal.entitlements */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -356,7 +420,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Journal/Journal.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Journal/Configuration/Journal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Journal/Preview Content\"";
@@ -364,7 +428,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Journal/Info.plist;
+				INFOPLIST_FILE = Journal/Configuration/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
@@ -395,7 +459,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = Journal/Journal.entitlements;
+				CODE_SIGN_ENTITLEMENTS = Journal/Configuration/Journal.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Journal/Preview Content\"";
@@ -403,7 +467,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = Journal/Info.plist;
+				INFOPLIST_FILE = Journal/Configuration/Info.plist;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphoneos*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSceneManifest_Generation[sdk=iphonesimulator*]" = YES;
 				"INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents[sdk=iphoneos*]" = YES;
